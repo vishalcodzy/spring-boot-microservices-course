@@ -23,6 +23,8 @@ public class ProductService {
     public PagedResult<Product> getProducts(int pageNo, String sortBy) {
         Sort sort = switch (sortBy) {
             case "code" -> Sort.by("code").ascending();
+            case "price-asc" -> Sort.by("price").ascending();
+            case "price-desc" -> Sort.by("price").descending();
             default -> Sort.by("name").ascending().and(Sort.by("code").ascending());
         };
         pageNo = pageNo <= 1 ? 0 : pageNo - 1;

@@ -27,7 +27,7 @@ class ProductController {
     PagedResult<Product> getProducts(
             @RequestParam(name = "page", defaultValue = "1") int pageNo,
             @RequestParam(name = "sort", defaultValue = "name") String sortBy) {
-        log.info("Fetching catalog page {} with sort {}", pageNo, sortBy);
+        log.info("Fetching products for page: {}, sort: {}", pageNo, sortBy);
         return productService.getProducts(pageNo, sortBy);
     }
 

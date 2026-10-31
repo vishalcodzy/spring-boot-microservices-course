@@ -45,6 +45,18 @@ class ProductControllerTest extends AbstractIT {
     }
 
     @Test
+    void shouldSortProductsByPriceAscending() {
+        given().contentType(ContentType.JSON)
+                .queryParam("sort", "price-asc")
+                .when()
+                .get("/api/products")
+                .then()
+                .statusCode(200)
+                .body("data[0].code", is("P107"))
+                .body("data[1].code", is("P108"));
+    }
+
+    @Test
     void shouldGetProductByCode() {
         Product product = given().contentType(ContentType.JSON)
                 .when()
