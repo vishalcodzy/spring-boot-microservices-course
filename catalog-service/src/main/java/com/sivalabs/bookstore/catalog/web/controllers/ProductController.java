@@ -24,9 +24,11 @@ class ProductController {
     }
 
     @GetMapping
-    PagedResult<Product> getProducts(@RequestParam(name = "page", defaultValue = "1") int pageNo) {
-        log.info("Fetching products for page: {}", pageNo);
-        return productService.getProducts(pageNo);
+    PagedResult<Product> getProducts(
+            @RequestParam(name = "page", defaultValue = "1") int pageNo,
+            @RequestParam(name = "sort", defaultValue = "name") String sortBy) {
+        log.info("Fetching catalog page {} with sort {}", pageNo, sortBy);
+        return productService.getProducts(pageNo, sortBy);
     }
 
     @GetMapping("/{code}")

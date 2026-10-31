@@ -20,8 +20,11 @@ public class ProductService {
         this.properties = properties;
     }
 
-    public PagedResult<Product> getProducts(int pageNo) {
-        Sort sort = Sort.by("name").ascending();
+    public PagedResult<Product> getProducts(int pageNo, String sortBy) {
+        Sort sort = switch (sortBy) {
+            case "code" -> Sort.by("code").ascending();
+            default -> Sort.by("name").ascending().and(Sort.by("code").ascending());
+        };
         pageNo = pageNo <= 1 ? 0 : pageNo - 1;
         Pageable pageable = PageRequest.of(pageNo, properties.pageSize(), sort);
         Page<Product> productsPage = productRepository.findAll(pageable).map(ProductMapper::toProduct);
