@@ -70,13 +70,13 @@ $ go install github.com/go-task/task/v3/cmd/task@latest
 
 ```
 
-Verify the prerequisites
+Check your tools before starting the services:
 
 ```shell
-$ java -version
-$ docker info
-$ docker compose version
-$ task --version
+$ java -version          # Java 25 should be available
+$ docker info           # Docker Desktop should be running
+$ docker compose version # Compose should be installed
+$ task --version        # Task should be on your PATH
 ```
 
 ### How to run the application locally?
