@@ -11,22 +11,22 @@ vars:
 
 tasks:
   default:
-    desc: Run the default verification task
+    desc: Execute the default task
     cmds:
       - task: test
   test:
-    desc: Format code, then run all Maven checks
+    desc: Run the full Maven verification lifecycle
     deps: [format]
     cmds:
       - "{{.MVNW}} clean verify"
 
   format:
-    desc: Apply the Maven Spotless formatter
+    desc: Format source files with Spotless
     cmds:
       - "{{.MVNW}} spotless:apply"
 
   build:
-    desc: Build Docker images for every service
+    desc: Create service container images
     cmds:
       - "{{.MVNW}} -pl catalog-service spring-boot:build-image -DskipTests"
       - "{{.MVNW}} -pl order-service spring-boot:build-image -DskipTests"
@@ -35,12 +35,12 @@ tasks:
       - "{{.MVNW}} -pl bookstore-webapp spring-boot:build-image -DskipTests"
 
   start_infra:
-    desc: Start the local infrastructure containers
+    desc: Launch supporting containers
     cmds:
       - "docker compose -f {{.INFRA_DC_FILE}} up -d"
 
   stop_infra:
-    desc: Stop and remove local infrastructure containers
+    desc: Remove supporting containers
     cmds:
       - "docker compose -f {{.INFRA_DC_FILE}} stop"
       - "docker compose -f {{.INFRA_DC_FILE}} rm -f"
